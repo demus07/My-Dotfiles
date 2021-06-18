@@ -113,6 +113,9 @@ format-prefix = " "
 format = <label>
 exec = python /home/demus/.config/polybar/spotify_status.py -f '{artist}: {song}'
 format-underline = #1db954
+format-prefix-foreground = #fefefe
+format-foreground = #fefefe
+format-background = #668bd7
 
 
 [module/xwindow]
