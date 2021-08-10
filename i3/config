@@ -178,6 +178,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3blocks -c /home/demus/.config/i3blocks/i3blocks.conf
+		height 20
 		position top
 		
 	colors {
@@ -351,4 +352,13 @@ mode "$mode_gaps_left" {
 }
 #lockscreen
 bindsym $mod+p exec /home/demus/.config/scripts/lock
+
+#Wallpaper
+exec --no-startup-id nitrogen --restore
+
+#Autotiling from https://github.com/nwg-piotr/autotiling
+exec_always --no-startup-id autotiling
+
+# volume
+exec --no-startup-id volumeicon
 
