@@ -2,6 +2,7 @@
 festival --tts $HOME/.config/qtile/welcome_msg &
 lxsession &
 nitrogen --restore &
+pasystray &
 /usr/bin/emacs --daemon &
-volumeicon &
 nm-applet &
+dunst &

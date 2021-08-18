@@ -32,7 +32,6 @@ keys = [
             ),
          Key([mod], "d",
              lazy.spawn("dmenu_run -p 'Run: '"),
-             # lazy.spawn("rofi -show drun -config ~/.config/rofi/themes/dt-dmenu.rasi -display-drun \"Run: \" -drun-display-format \"{name}\""),
              desc='Run Launcher'
              ),
          Key([mod], "Tab",
@@ -54,28 +53,6 @@ keys = [
          Key(["control", "shift"], "e",
              lazy.spawn("emacsclient -c -a emacs"),
              desc='Doom Emacs'
-             ),
-         ### Switch focus to specific monitor (out of three)
-         Key([mod], "w",
-             lazy.to_screen(0),
-             desc='Keyboard focus to monitor 1'
-             ),
-         Key([mod], "e",
-             lazy.to_screen(1),
-             desc='Keyboard focus to monitor 2'
-             ),
-         Key([mod], "r",
-             lazy.to_screen(2),
-             desc='Keyboard focus to monitor 3'
-             ),
-         ### Switch focus of monitors
-         Key([mod], "period",
-             lazy.next_screen(),
-             desc='Move focus to next monitor'
-             ),
-         Key([mod], "comma",
-             lazy.prev_screen(),
-             desc='Move focus to prev monitor'
              ),
          ### Treetab controls
           Key([mod, "shift"], "h",
@@ -162,7 +139,8 @@ groups = [
     Group("VCT", matches=[Match(wm_class=["discord"])]),
     Group("MUS", matches=[Match(wm_class=["Spotify"])]),
     Group("DEV", matches=[Match(wm_class=["Alacritty"])]),
-    Group("ALT", matches=[Match(wm_class=["firefox"])])
+    Group("ALT", matches=[Match(wm_class=["firefox"])]),
+    Group("VMS", matches=[Match(wm_class=["Virtualbox"])]),
     ]    
 
 
@@ -171,7 +149,7 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 8,
+                "margin": 14,
                 "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
@@ -242,7 +220,7 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.Image(
-                       filename = "~/.config/qtile/icons/python-white.png",
+                       filename = "~/.config/qtile/icons/python.png",
                        scale = "False",
                        background = colors[0],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
@@ -290,16 +268,43 @@ def init_widgets_list():
                        background = colors[0],
                        padding = 0
                        ),
-               widget.TextBox(
+              widget.TextBox(
                        text = '',
+                       background = colors[0],
+                       foreground = colors[4],
+                       padding = 0,
+                       fontsize = 37
+                       ),
+             widget.TextBox(
+                       text = '',
+                       background = colors[0],
+                       foreground = colors[4],
+                       padding = 0,
+                       fontsize = 37
+                       ),
+              widget.TextBox(
+                       text = " 🖬",
+                       foreground = colors[2],
                        background = colors[4],
-                       foreground = colors[5],
+                       padding = 0,
+                       fontsize = 14
+                       ),
+               widget.Memory(
+                       foreground = colors[2],
+                       background = colors[4],
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
+                       padding = 5
+                       ),
+              widget.TextBox(
+                       text='',
+                       background = colors[4],              
+                       foreground = colors[4],
                        padding = 0,
                        fontsize = 37
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[0],
+                       background = colors[4],
                        foreground = colors[5],
                        padding = 0,
                        fontsize = 37
@@ -361,7 +366,7 @@ def init_widgets_list():
                        ),
               widget.Systray(
                        background = colors[0],
-                       padding = 0
+                       padding = 0,
                        ),
               ]
     return widgets_list

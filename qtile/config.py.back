@@ -20,9 +20,9 @@ keys = [
              desc='Launches My Terminal'
              ),
          Key([mod], "Print",
-        lazy.spawn("scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png >-i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens"),
-      desc='screenshot leta hai'
-        ),
+	        lazy.spawn("scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png >-i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens"),
+    	    desc='screenshot leta hai'
+	        ),
         Key([mod, "shift"], "Print",
             lazy.spawn("scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection"),
             desc='bordere wala screenshot bro'
@@ -162,7 +162,8 @@ groups = [
     Group("VCT", matches=[Match(wm_class=["discord"])]),
     Group("MUS", matches=[Match(wm_class=["Spotify"])]),
     Group("DEV", matches=[Match(wm_class=["Alacritty"])]),
-    Group("ALT", matches=[Match(wm_class=["firefox"])])
+    Group("ALT", matches=[Match(wm_class=["firefox"])]),
+    Group("VMS", matches=[Match(wm_class=["Virtualbox"])]),
     ]    
 
 
@@ -171,7 +172,7 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 8,
+                "margin": 14,
                 "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
@@ -220,7 +221,7 @@ colors = [["#282c34", "#282c34"], # panel background
           ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
           ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
           ["#e1acff", "#e1acff"], # window name
-          ["#88FFF7", "#ecbbfb"]] # backbround for inactive screens
+          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -244,6 +245,7 @@ def init_widgets_list():
               widget.Image(
                        filename = "~/.config/qtile/icons/python.png",
                        scale = "False",
+                       background = colors[0],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
                        ),
              widget.Sep(
@@ -285,7 +287,7 @@ def init_widgets_list():
                        background = colors[0]
                        ),
               widget.WindowName(
-                       foreground = colors[6],
+                       foreground = colors[0],
                        background = colors[0],
                        padding = 0
                        ),
@@ -347,7 +349,7 @@ def init_widgets_list():
                       charge_char='^',
                       discharge_char='V',
                       empty_char='x',
-                      format=' {percent:0.0%}',
+                      format='  {percent:0.0%}',
                       background = colors[5],
                       foreground = colors [2],
                       ),
