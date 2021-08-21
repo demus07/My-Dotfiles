@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:DejaVu Sans Mono 9
+font pango:Mononoki Nerd Font 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -106,14 +106,14 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1:pdf	" 
-set $ws2 "2:rcy  " 
-set $ws3 "3:vct	"
-set $ws4 "4:mus	"
-set $ws5 "5:dev	"
-set $ws6 "6:alt	"
-set $ws7 "7:vm	"
-set $ws8 "8:shn	"
+set $ws1 "1" 
+set $ws2 "2" 
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
@@ -175,24 +175,24 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
+#bar {
         #status_command i3status -c /home/demus/.config/i3status/i3status.conf
-	status_command i3blocks -c /home/demus/.config/i3blocks/i3blocks.conf
-		height 18
-		position top
+	#status_command i3blocks -c /home/demus/.config/i3blocks/i3blocks.conf
+	#	height 18
+	#	position top
 		
-	colors {
-		background #1E212D
-		separator  #fefefe
-		statusline #fefefe
+	#colors {
+		#background #1E212D
+		#separator  #fefefe
+#		statusline #fefefe
 		# class                 border  	        backgr. 	        text
-		focused_workspace	#1E212D			#1E212D			#98DDCA
-	 	active_workspace	#1E212D			#1E212D			#FF449F
-		inactive_workspace	#1E212D			#1E212D			#FF449F
-		urgent_workspace	#1E212D			#1E212D			#DA0037
-	        binding_mode		#2f343a			#900000			#fefefe
-	}
-}
+#		focused_workspace	#1E212D			#1E212D			#98DDCA
+#	 	active_workspace	#1E212D			#1E212D			#FF449F
+#		inactive_workspace	#1E212D			#1E212D			#FF449F
+#		urgent_workspace	#1E212D			#1E212D			#DA0037
+#	        binding_mode		#2f343a			#900000			#fefefe
+	#}
+#}
 
 #screenshot
 # Multi-screen screenshots with scrot
@@ -202,9 +202,9 @@ bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~
 bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
 
 #Window colors
-set $bgcolor		#64C9CF
-set $ibgcolor 		#C2F784
-set $textcolor		#000000
+set $bgcolor		#e1acff
+set $ibgcolor 		#000000
+set $textcolor		#fefefe
 set $ubgcolor		#ff0000
 
 #				border		background		text		indicator
@@ -214,7 +214,7 @@ client.focused_inactive		$ibgcolor	$ibgcolor		$textcolor	$ibgcolor
 client.urgent			$ubgcolor	$ubgcolor		$textcolor	$ubgcolor
 
 #No titlebars
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 2
 
 # Brightness
 #exec_always xrandr --output eDP1 --brightness 0.45
@@ -228,8 +228,8 @@ for_window [class="Evince"] move to workspace $ws1
 for_window [class="firefox"] move to workspace $ws6
 
 #gaps
-gaps inner 10
-gaps outer  -4
+gaps inner 8
+gaps outer -6
 set $mode_gaps Gaps: (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
@@ -350,6 +350,18 @@ mode "$mode_gaps_left" {
         bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
 }
+
+bindsym XF86MonBrightnessUp exec "light -A -b 1"
+
+bindsym Control+XF86MonBrightnessUp exec "light -A -b 10"
+
+bindsym XF86MonBrightnessDown exec "light -U -b 1"
+
+bindsym Control+XF86MonBrightnessDown exec "light -U -b 10"
+
+#Polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 #lockscreen
 bindsym $mod+p exec /home/demus/.config/scripts/lock
 
