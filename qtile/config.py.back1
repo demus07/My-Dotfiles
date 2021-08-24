@@ -20,9 +20,9 @@ keys = [
              desc='Launches My Terminal'
              ),
          Key([mod], "Print",
-        lazy.spawn("scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png >-i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens"),
-    desc='screenshot leta hai'
-        ),
+	        lazy.spawn("scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png >-i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens"),
+    	    desc='screenshot leta hai'
+	        ),
         Key([mod, "shift"], "Print",
             lazy.spawn("scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection"),
             desc='bordere wala screenshot bro'
@@ -141,7 +141,7 @@ groups = [
     Group("DEV", matches=[Match(wm_class=["Alacritty"])]),
     Group("ALT", matches=[Match(wm_class=["firefox"])]),
     Group("VMS", matches=[Match(wm_class=["Virtualbox"])]),
-    ]
+    ]    
 
 
 for i, (name, kwargs) in enumerate(group_names, 1):
@@ -149,7 +149,7 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 3,
+                "margin": 14,
                 "border_focus": "e1acff",
                 "border_normal": "1D2330"
                 }
@@ -283,7 +283,7 @@ def init_widgets_list():
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = "🖬",
+                       text = " 🖬",
                        foreground = colors[2],
                        background = colors[4],
                        padding = 0,
@@ -297,7 +297,7 @@ def init_widgets_list():
                        ),
               widget.TextBox(
                        text='',
-                       background = colors[4],
+                       background = colors[4],              
                        foreground = colors[4],
                        padding = -3,
                        fontsize = 37
@@ -339,7 +339,7 @@ def init_widgets_list():
               widget.Clock(
                        foreground = colors[2],
                        background = colors[4],
-                       format ="  %A, %B %d - %H:%M "
+                       format =" %A, %B %d - %H:%M "
                        ),
               widget.TextBox(
                        text = '',
