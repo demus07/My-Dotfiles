@@ -16,18 +16,18 @@ myTerm = "alacritty"                             # My terminal of choice
 keys = [
          ### The essentials
          Key([mod], "Return",
-             lazy.spawn(myTerm+" -e zsh"),
+             lazy.spawn(myTerm),
              desc='Launches My Terminal'
              ),
-         Key([mod], "Print",
+         Key([], "Print",
         lazy.spawn("scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png >-i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens"),
     desc='screenshot leta hai'
         ),
-        Key([mod, "shift"], "Print",
+        Key(["shift"], "Print",
             lazy.spawn("scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection"),
-            desc='bordere wala screenshot bro'
+            desc='border wala screenshot bro'
             ),
-        Key([mod], "p", 
+        Key([mod], "p",
             lazy.spawn("/home/demus/.config/scripts/lock")
             ),
          Key([mod], "d",
@@ -46,13 +46,9 @@ keys = [
              lazy.restart(),
              desc='Restart Qtile'
              ),
-         Key([mod, "shift"], "q",
+         Key([mod, "shift"], "e",
              lazy.shutdown(),
              desc='Shutdown Qtile'
-             ),
-         Key(["control", "shift"], "e",
-             lazy.spawn("emacsclient -c -a emacs"),
-             desc='Doom Emacs'
              ),
          ### Treetab controls
           Key([mod, "shift"], "h",
@@ -149,29 +145,26 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 3,
+                "margin": 7,
                 "border_focus": "e1acff",
-                "border_normal": "1D2330"
+                "border_normal": "A19882"
                 }
 
 layouts = [
+    layout.MonadTall(**layout_theme),
     #layout.MonadWide(**layout_theme),
-    #layout.Bsp(**layout_theme),
+    layout.Bsp(**layout_theme),
     #layout.Stack(stacks=2, **layout_theme),
     #layout.Columns(**layout_theme),
     #layout.RatioTile(**layout_theme),
-    #layout.Tile(shift_windows=True, **layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
     #layout.VerticalTile(**layout_theme),
     #layout.Matrix(**layout_theme),
     #layout.Zoomy(**layout_theme),
-    layout.MonadTall(**layout_theme),
-    layout.Max(**layout_theme),
-    layout.Stack(num_stacks=2),
     layout.RatioTile(**layout_theme),
     layout.TreeTab(
          font = "Ubuntu",
          fontsize = 10,
-         sections = ["FIRST", "SECOND", "THIRD", "FOURTH"],
          section_fontsize = 10,
          border_width = 2,
          bg_color = "1c1f24",
@@ -191,21 +184,21 @@ layouts = [
     layout.Floating(**layout_theme)
 ]
 
-colors = [["#282c34", "#282c34"], # panel background
+colors = [["#282a36", "#282a36"], # panel background
           ["#3d3f4b", "#434758"], # background for current screen tab
-          ["#ffffff", "#ffffff"], # font color for group names
+          ["#8be9fd", "#8be9fd"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
-          ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
-          ["#e1acff", "#e1acff"], # window name
-          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
-
+          ["#ff79c6", "#ff79c6"], # color for 'odd widgets'
+          ["#bd93f9", "#bd93f9"], # color for the 'even widgets'
+          ["#8be9fd", "#8be9fd"], # Underlines active window name
+          ["#ff79c6", "#ff79c6"], # backbround for inactive screens 
+          ["#000000", "#000000"]] # Widget foreground color
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
     font="Ubuntu Mono Nerd Font",
-    fontsize = 12,
+    fontsize = 13,
     padding = 0,
     background=colors[2]
 )
@@ -283,14 +276,14 @@ def init_widgets_list():
                        fontsize = 37
                        ),
               widget.TextBox(
-                       text = "🖬",
-                       foreground = colors[2],
+                       text = "  ",
+                       foreground = colors[8],
                        background = colors[4],
                        padding = 0,
                        fontsize = 14
                        ),
                widget.Memory(
-                       foreground = colors[2],
+                       foreground = colors[8],
                        background = colors[4],
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
                        padding = 5
@@ -311,8 +304,8 @@ def init_widgets_list():
                        ),
              widget.Net(
                        interface = "wlp13s0",
-                       format = '   {down}   {up}',
-                       foreground = colors[2],
+                       format = ' {down}   {up}',
+                       foreground = colors[8],
                        background = colors[5],
                        padding = 5
                        ),
@@ -337,7 +330,7 @@ def init_widgets_list():
                        fontsize = 37
                        ),
               widget.Clock(
-                       foreground = colors[2],
+                       foreground = colors[8],
                        background = colors[4],
                        format ="  %A, %B %d - %H:%M "
                        ),
@@ -353,13 +346,33 @@ def init_widgets_list():
                       charge_char='^',
                       discharge_char='V',
                       empty_char='x',
-                      format='  {percent:0.0%}',
+                      full_char='100%',
+                      format='   {percent:0.0%} ',
                       background = colors[5],
-                      foreground = colors [2],
+                      foreground = colors [8],
                       ),
               widget.TextBox(
                        text = '',
                        background = colors[5],
+                       foreground = colors[4],
+                       padding = -3,
+                       fontsize = 37
+                       ),
+              widget.CurrentLayoutIcon(
+                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+                       foreground = colors[8],
+                       background = colors[4],
+                       padding = 0,
+                       scale = 0.7
+                       ),
+              widget.CurrentLayout(
+                       foreground = colors[8],
+                       background = colors[4],
+                       padding = 5
+                       ),
+              widget.TextBox(
+                       text = '',
+                       background = colors[4],
                        foreground = colors[0],
                        padding = -3,
                        fontsize = 37
@@ -451,12 +464,3 @@ def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that haqtileppens to be on java's whitelist.
-wmname = "qtile"

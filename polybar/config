@@ -77,15 +77,15 @@ module-margin-left = 0
 module-margin-right = 0
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0 = "UbuntuMono Nerd Font:size=10;2"
+font-0 = "UbuntuMono Nerd Font:size=11;2"
 font-1 = "UbuntuMono Nerd Font:size=16;3"
 font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 
 modules-left = i3 
-modules-center= xwindow
-modules-right = arrow5 memory2 arrow2 pavolume arrow3 date arrow2 battery arrow4
+modules-center= 
+modules-right = arrow5 date arrow2 battery arrow4
 
 separator =  
 
@@ -303,13 +303,13 @@ battery = BAT1
 adapter = AC0
 full-at = 100
 
-format-charging = <animation-charging> <label-charging>
+format-charging = <animation-charging>  <label-charging>
 label-charging =  %percentage%%
 format-charging-foreground = #fefefe
 format-charging-background = #668bd7
 
-format-discharging = <ramp-capacity> <label-discharging>
-label-discharging =  %percentage% %
+format-discharging = <ramp-capacity>  <label-discharging>
+label-discharging =  %percentage% %
 format-discharging-foreground = #fefefe
 format-discharging-background = #668bd7
 
@@ -318,18 +318,18 @@ format-full-prefix-foreground = #fefefe
 format-full-foreground = #fefefe
 format-full-background = #668bd7
 
-ramp-capacity-0 =   
-ramp-capacity-1 =   
-ramp-capacity-2 =   
-ramp-capacity-3 =   
-ramp-capacity-4 =   
+ramp-capacity-0 =     
+ramp-capacity-1 =     
+ramp-capacity-2 =     
+ramp-capacity-3 =     
+ramp-capacity-4 =      
 ramp-capacity-foreground = #fefefe
 
-animation-charging-0 =  
-animation-charging-1 =  
-animation-charging-2 =  
-animation-charging-3 =  
-animation-charging-4 =  
+animation-charging-0 =    
+animation-charging-1 =    
+animation-charging-2 =  
+animation-charging-3 =   
+animation-charging-4 =   
 animation-charging-foreground = #fefefe
 animation-charging-framerate = 750
 
