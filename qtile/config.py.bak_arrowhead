@@ -146,7 +146,10 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
 layout_theme = {"border_width": 0,
                 "margin": 7,
+                "border_focus": "e1acff",
+                "border_normal": "A19882"
                 }
+
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.TreeTab(
@@ -175,22 +178,18 @@ colors = [["#282a36", "#282a36"], # panel background
           ["#3d3f4b", "#434758"], # background for current screen tab
           ["#C2F784", "#C2F784"], # font color for group names
           ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#00C1D4", "#00C1D4"], # color for 'odd widgets'
+          ["#ff79c6", "#ff79c6"], # color for 'odd widgets'
           ["#bd93f9", "#bd93f9"], # color for the 'even widgets'
           ["#C2F784", "#C2F784"], # Underlines active window name
           ["#F3F1F5", "#F3F1F5"], # backbround for inactive screens 
           ["#000000", "#000000"], # Widget foreground color
-          ["#FFE6E6", "#FFE6E6"], # Background of current tab
-          ["#FF4848", "#FF4848"], # Color for calender widget
-          ["#00C1D4", "#00C1D4"], # Color for Layout indicator widget
-          ["#FFC947", "#FFC947"]] # Color for Battery widget
-
+          ["#FFE6E6", "#FFE6E6"]] # Background of current tab
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
-    font="JetBrains Mono",
-    fontsize = 13,
+    font="Ubuntu Mono Nerd Font",
+    fontsize = 10,
     padding = 0,
     background=colors[2]
 )
@@ -198,19 +197,24 @@ extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
-            widget.Sep(
+              widget.Sep(
                        linewidth = 0,
                        padding = 0,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-            widget.Sep(
+              widget.Image(
+                       filename = "~/.config/qtile/icons/python-white.png",
+                       scale = "False",
+                       background = colors[0],
+                       ),
+             widget.Sep(
                        linewidth = 0,
                        padding = 6,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-            widget.GroupBox(font="Awesome Font",
+              widget.GroupBox(font="Awesome Font",
                        fontsize = 14,
                        margin_y = 3,
                        margin_x = 0,
@@ -229,73 +233,101 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[0]
                        ),
-            widget.Prompt(
+              widget.Prompt(
                        prompt = prompt,
                        font = "Ubuntu Mono Nerd Font",
                        padding = 10,
                        foreground = colors[3],
                        background = colors[1]
                        ),
-            widget.Sep(
+              widget.Sep(
                        linewidth = 0,
-                       padding = 650,
+                       padding = 40,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-            widget.Clock(
-                       highlight_method = "line",
-                       highlight_color = colors[10],
-                       foreground = colors[7],
+          widget.WindowName(font= "Ubuntu Mono Nerd Font",
+                      fontsize=14,
+                       foreground = colors[0],
                        background = colors[0],
+                      padding = 0
+                       ),
+              widget.TextBox(
+                       text = '',
+                       background = colors[0],
+                       foreground = colors[4],
+                       padding = 0,
+                       fontsize = 37
+                       ),
+             widget.TextBox(
+                       text = '',
+                       background = colors[0],
+                       foreground = colors[4],
+                       padding = -3,
+                       fontsize = 37
+                       ),
+              widget.TextBox(
+                       text = '',
+                       background = colors[4],
+                       foreground = colors[4],
+                       padding = -3,
+                       fontsize = 37
+                       ),
+              widget.Clock(
+                       foreground = colors[8],
+                       background = colors[4],
                        format ="  %A, %B %d - %H:%M "
                        ),
-            widget.Sep(
-                    linewidth = 2,
-                    padding = 5,
-                    foreground = colors[7],
-                    background = colors[0]
-                    ),
-            widget.CurrentLayoutIcon(
+              widget.TextBox(
+                       text = '',
+                       background = colors[4],
+                       foreground = colors[5],
+                       padding = -3,
+                       fontsize = 37
+                       ),
+              widget.Battery(
+                      battery=1,
+                      charge_char='^',
+                      discharge_char='V',
+                      empty_char='x',
+                      full_char='100%',
+                      format='   {percent:0.0%} ',
+                      background = colors[5],
+                      foreground = colors [8],
+                      ),
+              widget.TextBox(
+                       text = '',
+                       background = colors[5],
+                       foreground = colors[4],
+                       padding = -3,
+                       fontsize = 37
+                       ),
+              widget.CurrentLayoutIcon(
                        custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-                       foreground = colors[7],
-                       background = colors[0],
+                       foreground = colors[0],
+                       background = colors[4],
                        padding = 0,
                        scale = 0.7
                        ),
-            widget.CurrentLayout(
-                       foreground = colors[7],
-                       background = colors[0],
+              widget.CurrentLayout(
+                       foreground = colors[8],
+                       background = colors[4],
                        padding = 5
                        ),
-            widget.Sep(
-                      linewidth = 2,
-                      padding = 5,
-                      foreground = colors[7],
-                      background = colors[0]
-                        ),
-            widget.Battery(
-                       battery=1,
-                     charge_char='^',
-                     discharge_char='V',
-                     empty_char='x',
-                     full_char='100%',
-                     format='   {percent:0.0%} ',
-                     background = colors[0],
-                     foreground = colors [7],
+              widget.TextBox(
+                       text = '',
+                       background = colors[4],
+                       foreground = colors[0],
+                       padding = -3,
+                       fontsize = 37
                        ),
-            widget.Sep(
-                     linewidth = 2,
-                     padding = 5,
-                     foreground = colors[7],
-                     background = colors[0]
-                        ),
-            widget.Systray(
+              widget.Systray(
                        background = colors[0],
                        padding = 2,
                        ),
-            widget.Sep (
+              widget.Sep (
                       linewidth =0,
-                      padding = 800,
+                      padding = 6,
                       foreground = colors[0],
                       background = colors[0]
                       ),
@@ -304,15 +336,17 @@ def init_widgets_list():
 
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
+    del widgets_screen1[7:8]               # Slicing removes unwanted widgets (systray) on Monitors 1,3
     return widgets_screen1
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20)),
-            ]
+            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20))]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
     widgets_list = init_widgets_list()
+    widgets_screen1 = init_widgets_screen1()
 
 def window_to_prev_group(qtile):
     if qtile.currentWindow is not None:
@@ -323,6 +357,23 @@ def window_to_next_group(qtile):
     if qtile.currentWindow is not None:
         i = qtile.groups.index(qtile.currentGroup)
         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
+
+def window_to_previous_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i != 0:
+        group = qtile.screens[i - 1].group.name
+        qtile.current_window.togroup(group)
+
+def window_to_next_screen(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    if i + 1 != len(qtile.screens):
+        group = qtile.screens[i + 1].group.name
+        qtile.current_window.togroup(group)
+
+def switch_screens(qtile):
+    i = qtile.screens.index(qtile.current_screen)
+    group = qtile.screens[i - 1].group
+    qtile.current_screen.set_group(group)
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),

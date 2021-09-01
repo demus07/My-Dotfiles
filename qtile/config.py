@@ -120,23 +120,22 @@ keys = [
              ),
          ]
 
-group_names = [("PDF", {'layout': 'monadtall'}),
-               ("WWW", {'layout': 'monadtall'}),
-               ("VCT", {'layout': 'monadtall'}),
-               ("MUS", {'layout': 'monadtall'}),
-               ("DEV", {'layout': 'monadtall'}),
-               ("ALT", {'layout': 'monadtall'}),
-               ("VMS", {'layout': 'monadtall'}),
-               ("IDK", {'layout': 'monadtall'}),
-               ("LOL", {'layout': 'floating'})]
+group_names = [("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ]
 groups = [
-    Group("PDF", matches=[Match(wm_class=["Evince"])]),
-    Group("WWW", matches=[Match(wm_class=["Brave-browser"])]),
-    Group("VCT", matches=[Match(wm_class=["discord"])]),
-    Group("MUS", matches=[Match(wm_class=["Spotify"])]),
-    Group("DEV", matches=[Match(wm_class=["Alacritty"])]),
-    Group("ALT", matches=[Match(wm_class=["firefox"])]),
-    Group("VMS", matches=[Match(wm_class=["Virtualbox"])]),
+    Group("", matches=[Match(wm_class=["Evince"])]),
+    Group("", matches=[Match(wm_class=["Brave-browser"])]),
+    Group("", matches=[Match(wm_class=["discord"])]),
+    Group("", matches=[Match(wm_class=["Spotify"])]),
+    Group("", matches=[Match(wm_class=["Alacritty"])]),
+    Group("", matches=[Match(wm_class=["firefox"])]),
+    Group("", matches=[Match(wm_class=["Virtualbox"])]),
     ]
 
 
@@ -145,59 +144,27 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
 layout_theme = {"border_width": 2,
-                "margin": 7,
-                "border_focus": "e1acff",
-                "border_normal": "A19882"
+                "border_focus": "#e1acff",
+                "border_normal": "#FFE6E6",
+                "margin": 8
                 }
-
 layouts = [
     layout.MonadTall(**layout_theme),
-    #layout.MonadWide(**layout_theme),
-    layout.Bsp(**layout_theme),
-    #layout.Stack(stacks=2, **layout_theme),
-    #layout.Columns(**layout_theme),
-    #layout.RatioTile(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
-    #layout.VerticalTile(**layout_theme),
-    #layout.Matrix(**layout_theme),
-    #layout.Zoomy(**layout_theme),
-    layout.RatioTile(**layout_theme),
-    layout.TreeTab(
-         font = "Ubuntu",
-         fontsize = 10,
-         section_fontsize = 10,
-         border_width = 2,
-         bg_color = "1c1f24",
-         active_bg = "c678dd",
-         active_fg = "000000",
-         inactive_bg = "a9a1e1",
-         inactive_fg = "1c1f24",
-         padding_left = 0,
-         padding_x = 0,
-         padding_y = 5,
-         section_top = 10,
-         section_bottom = 20,
-         level_shift = 8,
-         vspace = 3,
-         panel_width = 200
-         ),
     layout.Floating(**layout_theme)
 ]
 
 colors = [["#282a36", "#282a36"], # panel background
-          ["#3d3f4b", "#434758"], # background for current screen tab
-          ["#8be9fd", "#8be9fd"], # font color for group names
-          ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#ff79c6", "#ff79c6"], # color for 'odd widgets'
-          ["#bd93f9", "#bd93f9"], # color for the 'even widgets'
-          ["#8be9fd", "#8be9fd"], # Underlines active window name
-          ["#ff79c6", "#ff79c6"], # backbround for inactive screens 
-          ["#000000", "#000000"]] # Widget foreground color
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
+          ["#FFB86C", "#FFB86C"], # Underline boi
+          ["#bd93f9", "#bd93f9"], # color for the clock and battery
+          ["#F3F1F5", "#F3F1F5"], # Group foreground
+          ["#FFC947", "#FFC947"], # Color for Updates and Monad layout
+          ["#000000", "#000000"], # Foreground for the widgets
+          ["#FE5455", "#FE5455"]  # Layout widget color
+          ]
 
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
-    font="Ubuntu Mono Nerd Font",
+    font="JetBrains Mono",
     fontsize = 13,
     padding = 0,
     background=colors[2]
@@ -206,203 +173,114 @@ extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
-              widget.Sep(
-                       linewidth = 0,
-                       padding = 0,
-                       foreground = colors[2],
-                       background = colors[0]
-                       ),
-              widget.Image(
-                       filename = "~/.config/qtile/icons/python.png",
-                       scale = "False",
-                       background = colors[0],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
-                       ),
-             widget.Sep(
+            widget.Sep(
                        linewidth = 0,
                        padding = 6,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-              widget.GroupBox(font="Ubuntu Bold",
-                       fontsize = 9,
+            widget.GroupBox(font="Noto Nerd Font",
+                       fontsize = 13,
                        margin_y = 3,
                        margin_x = 0,
                        padding_y = 5,
-                       padding_x = 3,
+                       padding_x = 5,
                        borderwidth = 3,
-                       active = colors[2],
-                       inactive = colors[7],
-                       rounded = False,
-                       highlight_color = colors[1],
+                       active = colors[3],
+                       inactive = colors[3],
+                       rounded = True,
+                       highlight_color = colors[0],
                        highlight_method = "line",
-                       this_current_screen_border = colors[6],
-                       this_screen_border = colors [4],
-                       other_current_screen_border = colors[6],
-                       other_screen_border = colors[4],
+                       this_current_screen_border = colors[1],
                        foreground = colors[2],
                        background = colors[0]
                        ),
-              widget.Prompt(
-                       prompt = prompt,
-                       font = "Ubuntu Mono Nerd Font",
-                       padding = 10,
-                       foreground = colors[3],
-                       background = colors[1]
-                       ),
-              widget.Sep(
+            widget.Sep(
                        linewidth = 0,
-                       padding = 40,
+                       padding = 590,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-              widget.WindowName(
-                       foreground = colors[0],
-                       background = colors[0],
-                      padding = 0
-                       ),
-              widget.TextBox(
+            widget.TextBox(
                        text = '',
                        background = colors[0],
-                       foreground = colors[4],
-                       padding = 0,
+                       foreground = colors[2],
+                       padding = -1,
+                       padding_y = 2,
                        fontsize = 37
                        ),
-             widget.TextBox(
-                       text = '',
-                       background = colors[0],
-                       foreground = colors[4],
-                       padding = -3,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = "  ",
-                       foreground = colors[8],
-                       background = colors[4],
-                       padding = 0,
-                       fontsize = 14
-                       ),
-               widget.Memory(
-                       foreground = colors[8],
-                       background = colors[4],
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text='',
-                       background = colors[4],
-                       foreground = colors[4],
-                       padding = -3,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = '',
-                       background = colors[4],
+            widget.Clock(
                        foreground = colors[5],
-                       padding = -3,
-                       fontsize = 37
-                       ),
-             widget.Net(
-                       interface = "wlp13s0",
-                       format = ' {down}   {up}',
-                       foreground = colors[8],
-                       background = colors[5],
-                       padding = 5
-                       ),
-              # widget.ThermalSensor(
-              #          foreground = colors[2],
-              #          background = colors[5],
-              #          threshold = 90,
-              #          padding = 5
-              #          ),
-              widget.TextBox(
-                       text = '',
-                       background = colors[5],
-                       foreground = colors[4],
-                       padding = -3,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = '',
-                       background = colors[4],
-                       foreground = colors[4],
-                       padding = -3,
-                       fontsize = 37
-                       ),
-              widget.Clock(
-                       foreground = colors[8],
-                       background = colors[4],
-                       format ="  %A, %B %d - %H:%M "
+                       background = colors[2],
+                       format =" %A, %B %d - %H:%M "
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
-                       foreground = colors[5],
-                       padding = -3,
+                       background = colors[2],
+                       foreground = colors[1],
+                       padding = -1,
                        fontsize = 37
                        ),
-              widget.Battery(
-                      battery=1,
-                      charge_char='^',
-                      discharge_char='V',
-                      empty_char='x',
-                      full_char='100%',
-                      format='   {percent:0.0%} ',
-                      background = colors[5],
-                      foreground = colors [8],
-                      ),
-              widget.TextBox(
+             widget.Battery(
+                       battery=1,
+                       charge_char='^',
+                       discharge_char='V',
+                       empty_char='x',
+                       full_char='100%',
+                       format='   {percent:0.0%} ',
+                       background = colors[1],
+                       foreground = colors [5],
+                            ),
+                widget.TextBox(
                        text = '',
-                       background = colors[5],
-                       foreground = colors[4],
-                       padding = -3,
+                       background = colors[1],
+                       foreground = colors[6],
+                       padding = -1,
                        fontsize = 37
                        ),
-              widget.CurrentLayoutIcon(
+                widget.CurrentLayoutIcon(
                        custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-                       foreground = colors[8],
-                       background = colors[4],
+                       foreground = colors[5],
+                       background = colors[6],
                        padding = 0,
                        scale = 0.7
                        ),
               widget.CurrentLayout(
-                       foreground = colors[8],
-                       background = colors[4],
+                       foreground = colors[5],
+                       background = colors[6],
                        padding = 5
                        ),
               widget.TextBox(
                        text = '',
-                       background = colors[4],
+                       background = colors[6],
                        foreground = colors[0],
-                       padding = -3,
+                       padding = 0,
                        fontsize = 37
                        ),
-              widget.Systray(
+                widget.Systray(
                        background = colors[0],
-                       padding = 0,
+                       padding = 2,
                        ),
+            widget.Sep (
+                      linewidth =0,
+                      padding =800,
+                      foreground = colors[0],
+                      background = colors[0]
+                      ),
               ]
     return widgets_list
 
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
-    del widgets_screen1[7:8]               # Slicing removes unwanted widgets (systray) on Monitors 1,3
     return widgets_screen1
-
-def init_widgets_screen2():
-    widgets_screen2 = init_widgets_list()
-    return widgets_screen2                 # Monitor 2 will display all widgets in widgets_list
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=20)),
-            Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=20))]
+            ]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
     widgets_list = init_widgets_list()
-    widgets_screen1 = init_widgets_screen1()
-    widgets_screen2 = init_widgets_screen2()
 
 def window_to_prev_group(qtile):
     if qtile.currentWindow is not None:
@@ -413,23 +291,6 @@ def window_to_next_group(qtile):
     if qtile.currentWindow is not None:
         i = qtile.groups.index(qtile.currentGroup)
         qtile.currentWindow.togroup(qtile.groups[i + 1].name)
-
-def window_to_previous_screen(qtile):
-    i = qtile.screens.index(qtile.current_screen)
-    if i != 0:
-        group = qtile.screens[i - 1].group.name
-        qtile.current_window.togroup(group)
-
-def window_to_next_screen(qtile):
-    i = qtile.screens.index(qtile.current_screen)
-    if i + 1 != len(qtile.screens):
-        group = qtile.screens[i + 1].group.name
-        qtile.current_window.togroup(group)
-
-def switch_screens(qtile):
-    i = qtile.screens.index(qtile.current_screen)
-    group = qtile.screens[i - 1].group
-    qtile.current_screen.set_group(group)
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
