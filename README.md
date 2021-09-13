@@ -1,4 +1,4 @@
-# my-i3-dotfiles
+# My dotfiles
 
 This repository contains all the dotfiles that I like to use.
 - Settings for:
