@@ -127,21 +127,21 @@ keys = [
              ),
          ]
 
-group_names = [("", {'layout': 'monadtall'}),
-               ("", {'layout': 'monadtall'}),
-               ("", {'layout': 'monadtall'}),
-               ("", {'layout': 'monadtall'}),
-               ("", {'layout': 'monadtall'}),
-               ("", {'layout': 'monadtall'}),
+group_names = [("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
+               ("", {'layout': 'monadtall'}),
                ("", {'layout': 'monadtall'}),
                ]
 groups = [
-    Group("", matches=[Match(wm_class=["Evince"])]),
-    Group("", matches=[Match(wm_class=["Brave-browser"])]),
-    Group("", matches=[Match(wm_class=["discord"])]),
-    Group("", matches=[Match(wm_class=["Spotify"])]),
-    Group("", matches=[Match(wm_class=["Alacritty"])]),
-    Group("", matches=[Match(wm_class=["firefox"])]),
+    Group("", matches=[Match(wm_class=["Evince"])]),
+    Group("", matches=[Match(wm_class=["Brave-browser"])]),
+    Group("", matches=[Match(wm_class=["discord"])]),
+    Group("", matches=[Match(wm_class=["Spotify"])]),
+    Group("", matches=[Match(wm_class=["Alacritty"])]),
+    Group("", matches=[Match(wm_class=["firefox"])]),
     Group("", matches=[Match(wm_class=["Virtualbox"])]),
     ]
 
@@ -150,10 +150,9 @@ for i, (name, kwargs) in enumerate(group_names, 1):
     keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
     keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
 
-layout_theme = {"border_width": 2,
-                "border_focus": "#e1acff",
+layout_theme = {"border_width": 0,
                 "border_normal": "#FFE6E6",
-                "margin": 9
+                "margin":5 
                 }
 layouts = [
     layout.MonadTall(**layout_theme),
@@ -200,75 +199,15 @@ def init_widgets_list():
                        ),
             widget.Sep(
                        linewidth = 0,
-                       padding = 300,
+                       padding = 770,
                        foreground = colors[2],
                        background = colors[0]
                        ),
-             widget.TextBox(
-                       text = '',
-                       background = colors[0],
-                       foreground = colors[4],
-                       padding = -1,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = "",
-                       foreground = colors[3],
-                       background = colors[4],
-                       padding = 0,
-                       fontsize = 14
-                       ),
-              widget.Memory(
-                       foreground = colors[3],
-                       background = colors[4],
-                       padding = 5
-                       ),
-            widget.TextBox(
-                       text = '',
-                       background = colors[4],
-                       foreground = colors[2],
-                       padding = -1,
-                       fontsize = 37
-                       ),
-             widget.Net(
-                       interface = "wlp13s0",
-                       format = '{down} {up}',
-                       foreground = colors[3],
-                       background = colors[2],
-                       padding = 5
-                       ),
-              widget.TextBox(
-                       text='',
-                       background = colors[2],
-                       foreground = colors[4],
-                       padding = -1,
-                       fontsize = 37
-                       ),
-              widget.TextBox(
-                       text = " ",
-                       padding = 2,
-                       foreground = colors[3],
-                       background = colors[4],
-                       fontsize = 14
-                       ),
-              widget.CheckUpdates(
-                       update_interval = 1,
-                       distro = "Arch",
-                       display_format = "Updates: {updates}",
-                       foreground = colors[3],
-                       background = colors[4]
-                       ),
-              widget.Sep(
-                       linewidth = 0,
-                       padding = 6,
-                       foreground = colors[4],
-                       background = colors[4]
-                       ),
                widget.TextBox(
                        text = '',
-                       background = colors[4],
+                       background = colors[0],
                        foreground = colors[2],
-                       padding = 0,
+                       padding = -1,
                        fontsize = 37
                        ),
               widget.CurrentLayoutIcon(

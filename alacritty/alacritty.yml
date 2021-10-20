@@ -13,13 +13,13 @@ scrolling:
   history: 5000
 font:
   normal:
-    family: Monofur 
+    family: JetBrains Mono
   bold:
-    family: Monofur
+    family: JetBrains Mono
   italic:
-    family: Monofur
+    family: JetBrains Mono
   bold_italic:
-    family: Monofur
+    family: JetBrains Mono
   size: 8
   offset:
     x: 0
