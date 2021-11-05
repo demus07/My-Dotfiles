@@ -157,13 +157,15 @@ layouts = [
 ]
 
 colors = [["#282c34", "#282c34"], # panel background            #0
-          ["#57CC99", "#57CC99"], # Underline boi               #1
-          ["#7197E7", "#7197E7"], # color for the clock         #2
-          ["#F3F1F5", "#F3F1F5"], # Group foreground            #3
-          ["#FFE699", "#FFE699"], # Color for Battery           #4
+          ["#F38181", "#F38181"], # internet module             #1
+          ["#ee4444", "#ee4444"], # internet symbol             #2
+          ["#08D9D6", "#08D9D6"], # Underline && calender       #3
+          ["#06aca9", "#06aca9"], # Calender symbol             #4
           ["#000000", "#000000"], # Foreground for the widgets  #5
-          ["#7197E7", "#7197E7"], # Layout widget color         #6
-          ["#393E46", "#393E46"], # Group Background color      #7
+          ["#EAFFD0", "#EAFFD0"], # Arch Updates Colour         #6
+          ["#ddffb3", "#ddffb3"], # Update Symbol               #7
+          ["#AA96DA", "#AA96DA"], # RAM widget                  #8
+          ["#a48ed7", "#a48ed7"], # Symbol for ram              #9
           ]
 
 
@@ -211,19 +213,34 @@ def init_widgets_list():
                        foreground = colors[2],
                        background = colors[0]
                        ),
+            widget.TextBox(
+                       text = " ⟳",
+                       padding = 2,
+                       foreground = colors[2],
+                       background = colors[5],
+                       fontsize = 14
+                       ),
+            widget.Memory(
+                       foreground = colors[2],
+                       background = colors[4],
+                       padding = 5
+                       ),
+
+              widget.CheckUpdates(
+                       update_interval = 1800,
+                       distro = "Arch",
+                       display_format = "{updates} Updates",
+                       foreground = colors[2],
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e sudo pacman -Syu')},
+                       background = colors[5]
+                       ),
+
              widget.Net(
                        interface = "wlp13s0",
                        format = '{down} {up}',
                        foreground = colors[2],
                        background = colors[5],
                        padding = 5
-                       ),
-              widget.CurrentLayoutIcon(
-                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
-                       foreground = colors[3],
-                       background = colors[2],
-                       padding = 0,
-                       scale = 0.7
                        ),
             widget.Clock(
                        foreground = colors[5],
