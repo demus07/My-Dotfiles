@@ -149,29 +149,24 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
 layout_theme = {"border_width": 0,
                 "border_normal": "#FFE6E6",
-                "margin": 10
+                "margin": 25
                 }
 layouts = [
     layout.MonadTall(**layout_theme),
     layout.Floating(**layout_theme)
 ]
 
-colors = [["#282c34", "#282c34"], # panel background            #0
-          ["#F38181", "#F38181"], # internet module             #1
-          ["#f05c5c", "#f05c5c"], # internet symbol             #2
-          ["#08D9D6", "#08D9D6"], # Underline && calender       #3
-          ["#07c5c2", "#07c5c2"], # Calender symbol             #4
-          ["#000000", "#000000"], # Foreground for the widgets  #5
-          ["#AA96DA", "#AA96DA"], # RAM widget                  #6
-          ["#957bd1", "#957bd1"], # Symbol for ram              #7
-          ["#EEEBDD", "#EEEBDD"]  # Group foreground            #8
-          ]
+colors = [["#2E3440", "#2E3440"], # panel background            #0
+          ["#EEEBDD", "#EEEBDD"], # Group foreground            #1
+          ["#AAA492", "#AAA492"], # Underline                   #2
+          ["#D8DEE9", "#D8DEE9"], # clock widget                #3
+         ]
 
 
 ##### DEFAULT WIDGET SETTINGS #####
 widget_defaults = dict(
     font="JetBrains Mono",
-    fontsize = 13,
+    fontsize = 11,
     padding = 0,
     background=colors[2]
 )
@@ -185,11 +180,6 @@ def init_widgets_list():
                        foreground = colors[0],
                        background = colors[0]
                        ),
-              widget.Image(
-                       filename = "~/.config/qtile/icons/python.png",
-                       scale = "False",
-                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm)}
-    ),
             widget.GroupBox(font="Font Awesome",
                        fontsize = 13,
                        margin_y = 4,
@@ -197,74 +187,36 @@ def init_widgets_list():
                        padding_y = 0,
                        padding_x = 4,
                        borderwidth = 3,
-                       active = colors[8],
-                       inactive = colors[8],
+                       active = colors[1],
+                       inactive = colors[1],
                        rounded = False,
                        highlight_color = colors[0],
                        highlight_method = "line",
-                       this_current_screen_border = colors[3],
+                       this_current_screen_border = colors[2],
                        foreground = colors[0],
                        background = colors[0]
                        ),
             widget.Sep(
-                       linewidth = 0,
-                       padding = 500,
+                     linewidth = 0,
+                       padding = 475,
                        foreground = colors[0],
                        background = colors[0]
-                       ),
-             widget.TextBox(
-                       text = '  ',
-                       background = colors[7],
-                       foreground = colors[5],
-                       padding = 0,
-                       fontsize =16
-                       ),
-            widget.Memory(
-                       foreground = colors[5],
-                       background = colors[6],
-                       padding = 5
-                       ),
-            widget.Sep(
-                       linewidth = 0,
-                       padding = 25,
-                       foreground = colors[0],
-                       background = colors[0]
-                       ),
-             widget.TextBox(
-                       text = '  ',
-                       background = colors[2],
-                       foreground = colors[5],
-                       padding = 0,
-                       fontsize = 16
-                       ),
-             widget.Net(
-                       interface = "wlp13s0",
-                       format = '{down} {up}',
-                       foreground = colors[5],
-                       background = colors[1],
-                       padding = 5
-                       ),
-             widget.Sep(
-                       linewidth = 0,
-                       padding = 25,
-                       foreground = colors[0],
-                       background = colors[0]
-                       ),
+                     ),
               widget.TextBox(
-                       text = '  ',
-                       background = colors[4],
-                       foreground = colors[5],
+                       text = '  ',
+                       background = colors[0],
+                       foreground = colors[3],
                        padding = 0,
                        fontsize = 16
                        ),
             widget.Clock(
-                       foreground = colors[5],
-                       background = colors[3],
-                       format =" %a %d %b-%R  "
+                       foreground = colors[3],
+                       background = colors[0],
+                       format ="%D %a-%R  "
                        ),
                 widget.Sep(
                        linewidth = 0,
-                       padding = 25,
+                       padding = 475,
                        foreground = colors[0],
                        background = colors[0]
                        ),
@@ -286,7 +238,7 @@ def init_widgets_screen1():
     return widgets_screen1
 
 def init_screens():
-    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=18)),
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=25, margin=[8,8,0,8])),
             ]
 
 if __name__ in ["config", "__main__"]:
